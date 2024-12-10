@@ -1,2 +1,1 @@
-# wazuh-helm-chart-
-Wazuh Helm Chart
+# Wazuh Helm Chart
