@@ -4,10 +4,19 @@ metadata:
   name: wazuh-manager-master
   namespace: wazuh
 spec:
+  serviceName: wazuh-manager-service
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wazuh-manager-master
   template:
+    metadata:
+      labels:
+        app: wazuh-manager-master
     spec:
       containers:
         - name: wazuh-manager
+          image: wazuh/wazuh-manager:4.9.2
           resources:
             requests:
               cpu: 1
@@ -18,7 +27,6 @@ spec:
   volumeClaimTemplates:
     - metadata:
         name: wazuh-manager-master
-        namespace: wazuh
       spec:
         accessModes:
           - ReadWriteOnce
