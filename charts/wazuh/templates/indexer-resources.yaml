@@ -4,10 +4,19 @@ metadata:
   name: wazuh-indexer
   namespace: wazuh
 spec:
+  serviceName: wazuh-indexer-service
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wazuh-indexer
   template:
+    metadata:
+      labels:
+        app: wazuh-indexer
     spec:
       containers:
         - name: wazuh-indexer
+          image: wazuh/wazuh-indexer:4.9.2
           resources:
             requests:
               cpu: 500m
@@ -18,7 +27,6 @@ spec:
   volumeClaimTemplates:
     - metadata:
         name: wazuh-indexer
-        namespace: indexer-cluster
       spec:
         accessModes:
           - ReadWriteOnce
