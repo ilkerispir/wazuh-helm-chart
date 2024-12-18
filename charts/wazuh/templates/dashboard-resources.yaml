@@ -4,10 +4,18 @@ metadata:
   name: wazuh-dashboard
   namespace: wazuh
 spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wazuh-dashboard
   template:
+    metadata:
+      labels:
+        app: wazuh-dashboard
     spec:
       containers:
         - name: wazuh-dashboard
+          image: wazuh/wazuh-dashboard:4.9.2
           resources:
             requests:
               cpu: 200m
