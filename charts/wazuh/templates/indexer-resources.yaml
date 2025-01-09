@@ -24,6 +24,15 @@ spec:
             limits:
               cpu: 1
               memory: 2Gi
+          env:
+            - name: plugins.security.disabled
+              value: "true"
+            - name: DISABLE_SECURITY_PLUGIN
+              value: "true"
+            - name: plugins.security.ssl.transport.enabled
+              value: "false"
+            - name: plugins.security.ssl.http.enabled
+              value: "false"
   volumeClaimTemplates:
     - metadata:
         name: wazuh-indexer
