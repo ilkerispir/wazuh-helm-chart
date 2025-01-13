@@ -1,9 +1,9 @@
 apiVersion: v2
 name: wazuh-helm-chart
-version: 1.0
-appVersion: 4.6.0
+version: "1.0.0"
+appVersion: "4.6.0"
 description: Wazuh Helm chart for Kubernetes
 dependencies:
   - name: reloader
-    version: 1.0.51
+    version: "1.0.51"
     repository: https://stakater.github.io/stakater-charts
