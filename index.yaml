@@ -1,0 +1,17 @@
+apiVersion: v1
+entries:
+  wazuh-helm-chart:
+  - apiVersion: v2
+    appVersion: 4.6.0
+    created: "2025-01-13T05:37:35.187648584Z"
+    dependencies:
+    - name: reloader
+      repository: https://stakater.github.io/stakater-charts
+      version: 1.0.51
+    description: Wazuh Helm chart for Kubernetes
+    digest: 222c93e170f21705b69826a28ae62770656e2cf5c061ddb860519c86dcc890bc
+    name: wazuh-helm-chart
+    urls:
+    - https://github.com/ilkerispir/wazuh-helm-chart/releases/download/wazuh-helm-chart-1.0.0/wazuh-helm-chart-1.0.0.tgz
+    version: 1.0.0
+generated: "2025-01-13T05:37:35.187658602Z"
