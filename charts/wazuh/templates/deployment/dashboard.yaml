@@ -21,6 +21,7 @@ spec:
         appComponent: Dashboard-Pod
         app: {{ include "appIdentifier" .Values.identifier }}-dashboard
       annotations:
+        secret.reloader.stakater.com/reload: "dashboard-certs"
         configmap.reloader.stakater.com/reload: "dashboard-conf"
         appComponent: Dashboard-Pod
       name: {{ include "appIdentifier" .Values.identifier }}-dashboard-dpl
@@ -29,6 +30,9 @@ spec:
         - configMap:
             name: dashboard-conf
           name: config
+        - name: dashboard-certs
+          secret:
+            secretName: dashboard-certs
       containers:
         - name: wazuh-dashboard
           image: "{{ .Values.dashboard.images.repository }}:{{ .Values.dashboard.images.tag }}"
@@ -39,6 +43,18 @@ spec:
               name: config
               readOnly: false
               subPath: opensearch_dashboards.yml
+            - mountPath: /usr/share/wazuh-dashboard/certs/cert.pem
+              name: dashboard-certs
+              readOnly: true
+              subPath: cert.pem
+            - mountPath: /usr/share/wazuh-dashboard/certs/key.pem
+              name: dashboard-certs
+              readOnly: true
+              subPath: key.pem
+            - mountPath: /usr/share/wazuh-dashboard/certs/root-ca.pem
+              name: dashboard-certs
+              readOnly: true
+              subPath: root-ca.pem
           ports:
             - containerPort: {{ .Values.dashboard.service.httpPort }}
               name: dashboard
@@ -68,9 +84,9 @@ spec:
             - name: SERVER_SSL_ENABLED
               value: {{ .Values.dashboard.enable_ssl | quote }}
             - name: SERVER_SSL_CERTIFICATE
-              value: ""
+              value: /usr/share/wazuh-dashboard/certs/cert.pem
             - name: SERVER_SSL_KEY
-              value: ""
+              value: /usr/share/wazuh-dashboard/certs/key.pem
             - name: WAZUH_API_URL
               value: {{ .Values.dashboard.env.WAZUH_API_URL | quote }}
             - name: API_USERNAME

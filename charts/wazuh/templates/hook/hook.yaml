@@ -20,6 +20,9 @@ spec:
     spec:
       restartPolicy: OnFailure
       volumes:
+      - name: indexer-certs
+        secret:
+          secretName: indexer-certs
       - configMap:
           name: {{ template "wazuh.indexer.fullname" . }}-config
           defaultMode: 0777
@@ -37,6 +40,26 @@ spec:
               name: indexer-conf
               readOnly: true
               subPath: script.sh
+            - mountPath: /usr/share/wazuh-indexer/certs/node-key.pem
+              name: indexer-certs
+              readOnly: true
+              subPath: node-key.pem
+            - mountPath: /usr/share/wazuh-indexer/certs/node.pem
+              name: indexer-certs
+              readOnly: true
+              subPath: node.pem
+            - mountPath: /usr/share/wazuh-indexer/certs/root-ca.pem
+              name: indexer-certs
+              readOnly: true
+              subPath: root-ca.pem
+            - mountPath: /usr/share/wazuh-indexer/certs/admin.pem
+              name: indexer-certs
+              readOnly: true
+              subPath: admin.pem
+            - mountPath: /usr/share/wazuh-indexer/certs/admin-key.pem
+              name: indexer-certs
+              readOnly: true
+              subPath: admin-key.pem
             - mountPath: /usr/share/wazuh-indexer/opensearch.yml
               name: indexer-conf
               readOnly: true
